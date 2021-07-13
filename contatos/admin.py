@@ -10,6 +10,8 @@ class ContatoAdmin(admin.ModelAdmin):
     list_filter = ('nome', 'sobrenome')
     list_per_page = 10
     search_fields = ('nome', 'sobrenome', 'telefone', 'data_criacao')
+
+
     
 
 admin.site.register(Categoria)
