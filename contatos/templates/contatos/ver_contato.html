@@ -11,8 +11,12 @@
     <dd>{{ contato.telefone }}</dd>
 
     <dt>E-mail</dt>
-    <dd>{{ contato.email }}</dd>
-
+    {% if contato.email|length >= 1 %}
+        <dd>{{ contato.email }}</dd>
+    {% else %}
+        <dd>Não informado</dd>
+    {% endif %}
+    
     <dt>Data criação</dt>
     <dd>{{ contato.data_criacao }}</dd>
 
