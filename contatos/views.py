@@ -5,9 +5,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 
+CONTATOS_POR_PAGINA = 4
+
 def index(request):
     contatos = Contato.objects.order_by('-id').filter(mostrar=True)
-    paginator = Paginator(contatos, 1)
+    paginator = Paginator(contatos, CONTATOS_POR_PAGINA)
     page = request.GET.get('p')
     contatos = paginator.get_page(page)
     return render(request, 'contatos/index.html', {
@@ -28,7 +30,7 @@ def busca(request):
     termo = request.GET.get('termo')
     
     if termo is None or not termo:
-        raise Http404
+        return index(request)
 
     campos = Concat('nome', Value(' '), 'sobrenome')
     print(termo)
@@ -42,7 +44,7 @@ def busca(request):
         return render(request, 'contatos/busca.html')
     
     
-    paginator = Paginator(contatos, 1)
+    paginator = Paginator(contatos, CONTATOS_POR_PAGINA)
     page = request.GET.get('p')
     contatos = paginator.get_page(page)
     return render(request, 'contatos/index.html', {

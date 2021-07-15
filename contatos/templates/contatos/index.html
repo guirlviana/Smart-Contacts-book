@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
 {%block 'conteudo'%}
+<br><br>
+<form method="get" action="{% url 'busca' %}">
+    <div class="form-group row">
+    <div class="col-12">
+        <input class="form-control"
+            type="search" value="{{ request.GET.termo }}"
+            id="search-input"
+            placeholder="Digite sua pesquisa"
+            name="termo">
+    </div>
+    </div>
+</form>
 <h1 class="mt-5">Minha agenda</h1>
 
 <div class="table-responsive">
@@ -16,14 +28,14 @@
         </thead>
         <tbody>
         {% for contato in contatos %}
-                <tr>
-                    <td>{{ contato.id }}</td>
-                    <td><a href="{% url 'ver_contato' contato.id %}"> {{ contato.nome }}</a></td>
-                    <td>{{ contato.sobrenome }}</td>
-                    <td>{{ contato.telefone }}</td>
-                    <td>{{ contato.categoria }}</td>
-                </tr>
-            {%endfor%}
+            <tr>
+                <td>{{ contato.id }}</td>
+                <td><a href="{% url 'ver_contato' contato.id %}"> {{ contato.nome }}</a></td>
+                <td>{{ contato.sobrenome }}</td>
+                <td>{{ contato.telefone }}</td>
+                <td>{{ contato.categoria }}</td>
+            </tr>
+        {%endfor%}
         </tbody>
     </table>
 </div>
