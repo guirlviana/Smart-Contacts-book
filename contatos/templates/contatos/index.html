@@ -3,30 +3,30 @@
 {%block 'conteudo'%}
 <h1 class="mt-5">Minha agenda</h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Sobrenome</th>
-        <th>Telefone</th>
-        <th>Categoria</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Categoria</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for contato in contatos %}
-            <tr>
-                <td>{{ contato.id }}</td>
-                <td><a href="{% url 'ver_contato' contato.id %}"> {{ contato.nome }}</a></td>
-                <td>{{ contato.sobrenome }}</td>
-                <td>{{ contato.telefone }}</td>
-                <td>{{ contato.categoria }}</td>
-            </tr>
-        {%endfor%}
-    </tbody>
-    
-</table>
-
+                <tr>
+                    <td>{{ contato.id }}</td>
+                    <td><a href="{% url 'ver_contato' contato.id %}"> {{ contato.nome }}</a></td>
+                    <td>{{ contato.sobrenome }}</td>
+                    <td>{{ contato.telefone }}</td>
+                    <td>{{ contato.categoria }}</td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
     {% for pagina in contatos.paginator.page_range %}
