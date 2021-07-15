@@ -36,7 +36,7 @@ def busca(request):
         return redirect('index')
 
     campos = Concat('nome', Value(' '), 'sobrenome')
-    print(termo)
+    
     contatos = Contato.objects.annotate(
         nome_completo=campos
     ).filter(
@@ -44,7 +44,8 @@ def busca(request):
         mostrar=True
         ).order_by('-id')
     if not contatos:
-        return render(request, 'contatos/busca.html')
+        messages.add_message(request, messages.WARNING, f'Nenhum contato encontrado para: {termo}')
+        return redirect('index')
     
     
     paginator = Paginator(contatos, CONTATOS_POR_PAGINA)
