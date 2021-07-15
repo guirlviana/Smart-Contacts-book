@@ -1,13 +1,15 @@
 from django.http.response import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Contato
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+from django.contrib import messages
 
 CONTATOS_POR_PAGINA = 4
 
 def index(request):
+    
     contatos = Contato.objects.order_by('-id').filter(mostrar=True)
     paginator = Paginator(contatos, CONTATOS_POR_PAGINA)
     page = request.GET.get('p')
@@ -30,7 +32,8 @@ def busca(request):
     termo = request.GET.get('termo')
     
     if termo is None or not termo:
-        return index(request)
+        messages.add_message(request, messages.ERROR, 'Campo de pesquisa vazio')
+        return redirect('index')
 
     campos = Concat('nome', Value(' '), 'sobrenome')
     print(termo)
