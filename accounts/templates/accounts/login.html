@@ -1,26 +1,33 @@
 {% extends 'base.html' %}
 
+{% block 'titulo' %}Login | {% endblock %}
+
 {% block 'conteudo' %}
 
 <h1 class="mt-5 mb-2 ">Login</h1>
-<form method="POST" action="{%  url 'login' %}">
+{% if not user.is_authenticated %}
+  <form method="POST" action="{%  url 'login' %}">
+      
+      {% csrf_token %}
+      <div class="form-group">
+      
+      <div class="form-group">
+        <label>Usuário</label>
+        <input type="text" class="form-control" name="usuario" value="{{ request.POST.usuario }}" placeholder="Digite seu nome de usuário">
+      </div>
     
-    {% csrf_token %}
-    <div class="form-group">
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" class="form-control" name="senha" placeholder="Digite sua senha">
+      </div>
+      
+      
     
-    <div class="form-group">
-      <label>Usuário</label>
-      <input type="text" class="form-control" name="usuario" value="{{ request.POST.usuario }}" placeholder="Digite seu nome de usuário">
-    </div>
-  
-    <div class="form-group">
-      <label>Senha</label>
-      <input type="password" class="form-control" name="senha" placeholder="Digite sua senha">
-    </div>
-    
-    
-  
-    <button type="submit" class="btn btn-primary">Entrar</button>
-</form>
+      <button type="submit" class="btn btn-primary">Entrar</button>
+      <a href="{% url 'cadastro' %}"><small id="emailHelp" class="form-text text-muted">Clique aqui para se cadastrar</small></a>
+  </form>
+{% else %}
+  <p>Você fez login com {{ user }}, <a href="{% url 'logout' %}">clique aqui para sair.</a></p>
+{% endif %}
 
 {% endblock %}

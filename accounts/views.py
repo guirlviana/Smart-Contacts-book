@@ -3,6 +3,7 @@ from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import FormContato
 
 def login(request):
     if request.method != "POST":
@@ -23,7 +24,7 @@ def login(request):
     else:
         auth.login(request, user)
         messages.success(request, "Login feito com sucesso")
-        return redirect('dashboard')
+        return redirect('index')
         
 
 def logout(request):
@@ -82,4 +83,21 @@ def cadastro(request):
     
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method != 'POST':
+        form = FormContato()
+        return render(request, 'accounts/dashboard.html', {'form': form})
+
+    form = FormContato(request.POST, request.FILES)
+
+    if not form.is_valid():
+        messages.error(request, 'Formulário inválido')
+        form = FormContato(request.POST)
+        return render(request, 'accounts/dashboard.html', {'form': form})
+    
+    form.save()
+    messages.success(request, f'Contato {request.POST.get("nome")} adicionado')
+    if 'adicionar_sair' in request.POST:
+        return redirect('index')
+    return redirect('dashboard')
+        
+

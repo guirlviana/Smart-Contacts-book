@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+
+
 {%block 'conteudo'%}
 <br>
 <form method="get" action="{% url 'busca' %}">
@@ -13,8 +15,10 @@
     </div>
     </div>
 </form>
-<h1 class="mt-5 mb-2 ml-5">Minha agenda</h1>
-
+<div class="mt-5 mb-5">
+<h1 class="d-inline p-2">Meus contatos</h1>
+<a href="{% url 'dashboard' %}"><button type="button" class="d-inline p-2 btn btn-primary float-right">Adicionar novo contato</button></a>
+</div>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

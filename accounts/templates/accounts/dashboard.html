@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 
+{% block 'titulo' %}Dashboard de {{ user }} | {% endblock %}
+
 {% block 'conteudo' %}
-<h1 class="mt-5 mb-2 ">Olá, {{ user.first_name }} {{ user.last_name }}</h1>
-<a href="{% url 'logout' %}"><button type="button" class="btn btn-primary">Sair</button></a>
+<h1 class="mt-5 mb-2 ">Olá. Adicione um contato hoje!</h1>
+
+<div class="container">
+    <form action="{% url 'dashboard' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table">
+            {{ form }}
+        </table>
+        <button type="submit" name='adicionar_sair' class="btn btn-primary float-left mr-2">Adicionar</button>
+        <button type="submit" name='adicionar_continuar' class="btn btn-primary float-left mr-2">Adicionar, adicionar outro</button> 
+    </form>
+    <a href="{% url 'index' %}"><button type="button" class="btn btn-primary float-right">Voltar</button></a>
+    
+</div>
+
+
+
 {% endblock %}
