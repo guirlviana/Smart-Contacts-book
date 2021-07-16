@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
 {% block 'conteudo' %}
-dashboard
+<h1 class="mt-5 mb-2 ">Olá, {{ user.first_name }} {{ user.last_name }}</h1>
+<a href="{% url 'logout' %}"><button type="button" class="btn btn-primary">Sair</button></a>
 {% endblock %}
