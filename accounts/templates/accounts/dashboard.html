@@ -8,11 +8,13 @@
 <div class="container">
     <form action="{% url 'dashboard' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <table class="table">
-            {{ form }}
-        </table>
-        <button type="submit" name='adicionar_sair' class="btn btn-primary float-left mr-2">Adicionar</button>
-        <button type="submit" name='adicionar_continuar' class="btn btn-primary float-left mr-2">Adicionar, adicionar outro</button> 
+        <div class="table-responsive">
+            <table class="table">
+                {{ form }}
+            </table>
+            <button type="submit" name='adicionar_sair' class="btn btn-primary float-left mr-2">Adicionar</button>
+            <button type="submit" name='adicionar_continuar' class="btn btn-primary float-left mr-2">Adicionar, adicionar outro</button> 
+        </div>
     </form>
     <a href="{% url 'index' %}"><button type="button" class="btn btn-primary float-right">Voltar</button></a>
     

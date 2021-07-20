@@ -11,7 +11,7 @@ CONTATOS_POR_PAGINA = 4
 @login_required(redirect_field_name='login')
 def index(request):
     
-    contatos = Contato.objects.order_by('-id').filter(mostrar=True)
+    contatos = Contato.objects.order_by('-id').filter(mostrar=True, usuario_agenda=request.user)
     paginator = Paginator(contatos, CONTATOS_POR_PAGINA)
     page = request.GET.get('p')
     contatos = paginator.get_page(page)
@@ -44,7 +44,7 @@ def busca(request):
         nome_completo=campos
     ).filter(
         Q(nome_completo__icontains=termo) | Q(telefone__icontains=termo),
-        mostrar=True
+        mostrar=True, usuario_agenda=request.user
         ).order_by('-id')
     if not contatos:
         messages.add_message(request, messages.WARNING, f'Nenhum contato encontrado para: {termo}')

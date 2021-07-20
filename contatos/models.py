@@ -17,5 +17,6 @@ class Contato(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
     mostrar = models.BooleanField(default=True)
     foto = models.ImageField(blank=True, upload_to = 'fotos/%Y/%m/')
+    usuario_agenda = models.CharField(max_length=255)
     def __str__(self):
         return self.nome

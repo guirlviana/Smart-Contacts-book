@@ -93,7 +93,8 @@ def dashboard(request):
         messages.error(request, 'Formulário inválido')
         form = FormContato(request.POST)
         return render(request, 'accounts/dashboard.html', {'form': form})
-    
+    form = form.save(commit=False)
+    form.usuario_agenda = request.user  # The logged-in user
     form.save()
     messages.success(request, f'Contato {request.POST.get("nome")} adicionado')
     if 'adicionar_sair' in request.POST:
